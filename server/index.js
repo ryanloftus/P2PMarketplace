@@ -1,11 +1,13 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 
+import config from './config';
+
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 const uri = 'mongodb+srv://ryanL:m3rNProj@cluster0.virgn.mongodb.net/sample_mflix?retryWrites=true&w=majority';
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(config.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {
     const collection = client.db('sample_mflix').collection('comments');
@@ -16,5 +18,3 @@ client.connect(err => {
     app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
     client.close();
 });
-
-

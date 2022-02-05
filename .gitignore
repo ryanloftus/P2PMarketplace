@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Sensitive Data
+config.js
+
+# React App Build Files
+my-app/build/
