@@ -2,8 +2,9 @@ function FilterMenu(props) {
     // TODO: use state hook and add onChanges
 
     return (
-        <div class="FilterMenu">
-            <label for="category">Category</label>
+        <div className="filter-menu">
+            <label className="filter-label" htmlFor="category">Category</label>
+            <br />
             <select id="category" name="category">
                 <option value="any">Any</option>
                 <option value="clothes">Clothes</option>
@@ -15,11 +16,17 @@ function FilterMenu(props) {
                 <option value="automobiles">Automobiles</option>
                 <option value="misc">Misc</option>
             </select>
-            <label for="price-min">Price Min</label>
+            <br />
+            <label className="filter-label" htmlFor="price-min">Price Min</label>
+            <br />
             <input type="number" id="price-min" name="price-min" min="0" max="999999" />
-            <label for="price-max">Price Max</label>
+            <br />
+            <label className="filter-label" htmlFor="price-max">Price Max</label>
+            <br />
             <input type="number" id="price-max" name="price-max" min="0" max="999999" />
-            <label for="sort">Sort By</label>
+            <br />
+            <label className="filter-label" htmlFor="sort">Sort By</label>
+            <br />
             <select id="sort" name="sort">
                 <option value="age-new">Age: New to Old</option>
                 <option value="age-old">Age: Old to New</option>

@@ -1,13 +1,16 @@
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+
 function NavBar(props) {
     return (
-        <div class="NavBar">
-            <h1 class="NavBar-title">P2P MarketPlace</h1>
-            <div class="NavBar-links">
-                <a class="NavBar-link" href="./post">Post an Ad</a>
-                <a class="NavBar-link" href="./profile">{props.name}</a>
-                <a class="NavBar-link" href="./login">Logout</a>
-            </div>
-        </div>
+        <Navbar className="NavBar" variant="dark" style={{backgroundColor: '#333'}}>
+            <Navbar.Brand className="NavBar-title">P2P MarketPlace</Navbar.Brand>
+            <Nav>
+                <Nav.Link href="./profile">{props.name}</Nav.Link>
+                <Nav.Link href="./post">Post an Ad</Nav.Link>
+                <Nav.Link href="./login">Logout</Nav.Link>
+            </Nav>
+        </Navbar>
     );
 }
 

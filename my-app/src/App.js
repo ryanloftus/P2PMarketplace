@@ -1,11 +1,11 @@
 import NavBar from './navbar';
 import FilterMenu from './filter-menu';
 import AdList from './ad-list';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
   return (
-    <div className="App">
+    <div className="app">
       <NavBar name="ryanloftus02@outlook.com" />
       <FilterMenu />
       <AdList />
