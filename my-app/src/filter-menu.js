@@ -7,7 +7,7 @@ function FilterMenu(props) {
 
     return (
         <Form className="filter-menu" style={{margin: '10px'}}>
-            <label className="filter-label" htmlFor="category" style={labelStyle}>Category</label>
+            <label htmlFor="category" style={labelStyle}>Category</label>
             <Form.Select id="category" name="category">
                 <option value="any">Any</option>
                 <option value="clothes">Clothes</option>
@@ -19,11 +19,11 @@ function FilterMenu(props) {
                 <option value="automobiles">Automobiles</option>
                 <option value="misc">Misc</option>
             </Form.Select>
-            <label className="filter-label" htmlFor="price-min" style={labelStyle}>Price Min</label>
-            <Form.Control type="number" id="price-min" name="price-min" min="0" max="999999" />
-            <label className="filter-label" htmlFor="price-max" style={labelStyle}>Price Max</label>
-            <Form.Control type="number" id="price-max" name="price-max" min="0" max="999999" />
-            <label className="filter-label" htmlFor="sort" style={labelStyle}>Sort By</label>
+            <label htmlFor="priceMin" style={labelStyle}>Price Min</label>
+            <Form.Control type="number" id="priceMin" name="priceMin" min="0" max="999999" />
+            <label htmlFor="price-max" style={labelStyle}>Price Max</label>
+            <Form.Control type="number" id="priceMax" name="priceMax" min="0" max="999999" />
+            <label htmlFor="sort" style={labelStyle}>Sort By</label>
             <Form.Select id="sort" name="sort">
                 <option value="age-new">Age: New to Old</option>
                 <option value="age-old">Age: Old to New</option>
