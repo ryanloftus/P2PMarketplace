@@ -4,7 +4,7 @@ export default class AdsDao {
     static async injectDB(connection) {
         if (ads) return;
         try {
-            ads = await connection.db(process.env.ADS_NS).collection('ads');
+            ads = await connection.db(process.env.DB_NAME).collection('ads');
         } catch (err) {
             console.error(`Unable to connect to ads collection. ${err}`)
         }
@@ -27,6 +27,27 @@ export default class AdsDao {
         } catch (err) {
             console.error(`Unable to issue query. ${err}`);
             return { adsList: [], numResults: 0};
+        }
+    }
+
+    static async postAd(adData) {
+        // TODO
+    }
+
+    static async updateAd(id, adData) {
+        // TODO
+    }
+
+    static async deleteAd(id) {
+        if (!id) {
+            return false;
+        }
+        try {
+            ads.remove({ _id: id }, { justOne: true });
+            return true;
+        } catch (err) {
+            console.error(`Unable to issue delete. ${err}`);
+            return false;
         }
     }
 }

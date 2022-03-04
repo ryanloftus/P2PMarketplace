@@ -15,4 +15,22 @@ export default class AdsController {
             numResults: numResults,
         });
     }
+
+    static async apiPostAd(req, res) {
+        // TODO
+    }
+
+    static async apiUpdateAd(req, res) {
+        // TODO
+    }
+
+    static async apiDeleteAd(req, res) {
+        const id = req.body.id;
+        const wasDeleteSuccess = await AdsDao.deleteAd(id);
+
+        res.json({
+            id: id,
+            successful: wasDeleteSuccess,
+        });
+    }
 }
