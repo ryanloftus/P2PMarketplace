@@ -17,20 +17,23 @@ export default class AdsController {
     }
 
     static async apiPostAd(req, res) {
-        // TODO
+        const wasPostSuccess = await AdsDao.postAd(req.body);
+
+        res.json({ successful: wasPostSuccess });
     }
 
     static async apiUpdateAd(req, res) {
-        // TODO
+        const id = req.body.id;
+        delete req.body.id;
+        const wasUpdateSuccess = await AdsDao.updateAd(id, req.body);
+
+        res.json({ successful: wasUpdateSuccess });
     }
 
     static async apiDeleteAd(req, res) {
         const id = req.body.id;
         const wasDeleteSuccess = await AdsDao.deleteAd(id);
 
-        res.json({
-            id: id,
-            successful: wasDeleteSuccess,
-        });
+        res.json({ successful: wasDeleteSuccess });
     }
 }

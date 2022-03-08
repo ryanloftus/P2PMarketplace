@@ -10,14 +10,16 @@ export default class AdsDao {
         }
     }
 
-    static async getAds({ filters = null, page = 0, adsPerPage = 20 }) {
+    static async getAds({ filters = {}, page = 0, adsPerPage = 20 }) {
         // TODO: add sort functionality
         let query = {};
         if (filters) {
             if (filters.priceMin && filters.priceMax)
                 query.price = { $gte: filters.priceMin, $lte: filters.priceMax };
-            if (filters?.category && filters.category != 'any') 
+            if (filters.category != 'any') 
                 query.category = { $eq: filters.category };
+            if (filters.user)
+                query.user = { $eq: filters.user };
         }
 
         try {
@@ -31,11 +33,23 @@ export default class AdsDao {
     }
 
     static async postAd(adData) {
-        // TODO
+        try {
+            ads.insertOne(adData);
+            return true;
+        } catch (err) {
+            console.error(`Unable to post ad. ${err}`);
+            return false;
+        }
     }
 
     static async updateAd(id, adData) {
-        // TODO
+        try {
+            ads.update({ _id: id }, { $set: adData });
+            return true;
+        } catch (err) {
+            console.error(`Unable to update ad. ${err}`);
+            return false;
+        }
     }
 
     static async deleteAd(id) {
