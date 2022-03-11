@@ -4,7 +4,6 @@ import UsersController from './users.controller.js';
 const router = express.Router();
 router.route('/').get(UsersController.apiGetUser);
 router.route('/').post(UsersController.apiPostUser);
-router.route('/').patch(UsersController.apiUpdateUser);
 router.route('/').delete(UsersController.apiDeleteUser);
 
 export default router;

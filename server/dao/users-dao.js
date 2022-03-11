@@ -10,19 +10,39 @@ export default class UsersDao {
         }
     }
 
-    static async getUser() {
-        // TODO
+    static async getUser(id) {
+        const query = { _id: { $eq: id } };
+        let user;
+        try {
+            user = await users.findOne(query);
+        } catch (err) {
+            user = {};
+            console.error(`Could not issue query. ${err}`);
+        }
+        return user;
     }
 
-    static async postUser() {
-        // TODO
+    static async postUser(user) {
+        const newUser = {
+            _id: user.username,
+            password: user.password,
+        }
+        try {
+            await users.insertOne(newUser);
+            return true;
+        } catch (err) {
+            console.error(`Create new user failed. ${err}`);
+            return false;
+        }
     }
 
-    static async updateUser() {
-        // TODO
-    }
-
-    static async deleteUser() {
-        // TODO
+    static async deleteUser(id) {
+        try {
+            await users.deleteOne({ _id: { $eq: id } });
+            return true;
+        } catch (err) {
+            console.error(`Delete user failed. ${err}`);
+            return false;
+        }
     }
 }

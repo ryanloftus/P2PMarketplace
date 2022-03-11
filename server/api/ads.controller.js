@@ -1,4 +1,4 @@
-import AdsDao from "../dao/ads-dao.js";
+import AdsDao from '../dao/ads-dao.js';
 
 export default class AdsController {
     static async apiGetAds(req, res) {

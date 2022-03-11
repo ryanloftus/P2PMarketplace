@@ -53,9 +53,7 @@ export default class AdsDao {
     }
 
     static async deleteAd(id) {
-        if (!id) {
-            return false;
-        }
+        if (!id) return false;
         try {
             ads.remove({ _id: id }, { justOne: true });
             return true;
