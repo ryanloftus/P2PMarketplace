@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import NavBar from './navbar';
 import FilterMenu from './filter-menu';
 import AdList from './ad-list';
@@ -7,6 +8,14 @@ import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
+
+  const [filters, setFilters] = useState({
+    category: 'any',
+    priceMin: 0,
+    priceMax: 999999,
+    sort: 'age-new',
+  });
+
   return (
     <Container fluid className="app">
       <Row>
@@ -14,10 +23,10 @@ function App(props) {
       </Row>
       <Row>
         <Col>
-          <FilterMenu />
+          <FilterMenu onFiltersChange={setFilters} />
         </Col>
         <Col xs={10}>
-          <AdList />
+          <AdList filters={filters} />
         </Col>
       </Row>
     </Container>

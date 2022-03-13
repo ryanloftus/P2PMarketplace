@@ -2,15 +2,21 @@ import AdsDao from '../dao/ads-dao.js';
 
 export default class AdsController {
     static async apiGetAds(req, res) {
-        const adsPerPage = req.body.adsPerPage ? parseInt(req.body.adsPerPage) : 20;
-        const page = req.body.page ? parseInt(req.body.page) : 0;
-        const filters = req.body ? req.body : {};
+        if (!req.params) {
+            console.error('Invalid request. Params not specified.');
+            return;
+        }
+
+        const params = req.params;
+
+        const adsPerPage = params.adsPerPage ? parseInt(params.adsPerPage) : 20;
+        const page = params.page ? parseInt(params.page) : 0;
+        const filters = params.filters ? params.filters : {};
         const { adsList, numResults } = await AdsDao.getAds({ filters: filters, page: page, adsPerPage: adsPerPage });
 
         res.json({
-            adsList: adsList,
+            ads: adsList,
             page: page,
-            filters: filters,
             adsPerPage: adsPerPage,
             numResults: numResults,
         });
