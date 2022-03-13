@@ -16,7 +16,7 @@ export default class AdsDao {
         if (filters) {
             if (filters.priceMin && filters.priceMax)
                 query.price = { $gte: filters.priceMin, $lte: filters.priceMax };
-            if (filters.category != 'any') 
+            if (filters.category && filters.category != 'any') 
                 query.category = { $eq: filters.category };
             if (filters.user)
                 query.user = { $eq: filters.user };

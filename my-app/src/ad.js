@@ -8,7 +8,7 @@ function Ad(props) {
                 <Card.Text>{props.info.description}</Card.Text>
                 <Card.Text>{props.info.date}</Card.Text>
                 <Card.Text>{props.info.user}</Card.Text>
-                <Card.Text>{props.info.location}</Card.Text>
+                <Card.Text>{props.info.location.address}, {props.info.location.city}, {props.info.location.province}</Card.Text>
                 <Card.Text>{props.info.price}</Card.Text>
                 <Card.Text>{props.info.category}</Card.Text>
             </Card.Body>

@@ -1,14 +1,14 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form'
 
-function FilterMenu({ filters, onFiltersChanged }) {
+function FilterMenu({ filters, onFiltersChange }) {
     const labelStyle = { margin: '20px 0px 0px 0px' };
 
     const handleChange = (event) => {
         const newFilters = {};
         Object.assign(newFilters, filters);
         newFilters[event.target.name] = event.target.value;
-        onFiltersChanged(newFilters);
+        onFiltersChange(newFilters);
     }
 
     return (
