@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 
 function Ad(props) {
     return (
-        <Card style={{width:'60%', margin: '20px auto'}}>
+        <Card style={{width: '80%', margin: '20px auto'}}>
             <Card.Body>
                 <Card.Title>{props.info.title}</Card.Title>
                 <Card.Text>{props.info.description}</Card.Text>

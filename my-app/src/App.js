@@ -19,7 +19,7 @@ function App(props) {
   return (
     <Container fluid className="app">
       <Row>
-        <NavBar name="ryanloftus02@outlook.com" />
+        <NavBar />
       </Row>
       <Row>
         <Col>

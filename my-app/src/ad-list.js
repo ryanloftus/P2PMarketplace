@@ -33,16 +33,16 @@ function AdList({ filters }) {
     let pageContent;
     if (ads && numAds > 0) {
         pageContent = (
-            <div >
+            <div style={{width:'100%'}}>
                 {ads.map((ad, i) => <Ad info={ad} key={i} />)}
-                <Pagination>
-                    {<Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />}
-                    {<Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />}
+                <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                    <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />
+                    <Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />
                     <Pagination.Item active>{page + 1}</Pagination.Item>
-                    {<Pagination.Next disabled={onLastPage} onClick={() => setPage(page + 1)} />}
-                    {<Pagination.Last disabled={onLastPage} onClick={() => setPage(lastPage)} />}
+                    <Pagination.Next disabled={onLastPage} onClick={() => setPage(page + 1)} />
+                    <Pagination.Last disabled={onLastPage} onClick={() => setPage(lastPage)} />
                 </Pagination>
-                <p>Showing {ads.length} of {numAds} results</p>
+                <p style={{display: 'flex',  justifyContent:'center'}}>Showing {ads.length} of {numAds} results</p>
             </div>
         );
     } else {
