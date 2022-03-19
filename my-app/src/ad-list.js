@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Pagination from 'react-bootstrap/Pagination';
 import Ad from './ad';
 
 function AdList({ filters }) {
@@ -23,15 +24,32 @@ function AdList({ filters }) {
         }
     }, [filters, page]);
     
-    useEffect(() => fetchAds(), [fetchAds]);
+    useEffect(() => fetchAds(), [page, filters]);
 
-    // TODO: add a control for pagination
-    return (
-        <div className="AdList">
-            {ads ? ads.map((ad, i) => <Ad info={ad} key={i} />) : <p>No Results 😕</p>}
-            <p>{ads ? `${numAds} result${numAds > 1 ? 's' : ''}` : ''}</p>
-        </div>
-    );
+    const lastPage = Math.floor(numAds / 20);
+    const onFirstPage = page === 0;
+    const onLastPage = page === lastPage;
+
+    let pageContent;
+    if (ads && numAds > 0) {
+        pageContent = (
+            <div >
+                {ads.map((ad, i) => <Ad info={ad} key={i} />)}
+                <Pagination>
+                    {<Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />}
+                    {<Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />}
+                    <Pagination.Item active>{page + 1}</Pagination.Item>
+                    {<Pagination.Next disabled={onLastPage} onClick={() => setPage(page + 1)} />}
+                    {<Pagination.Last disabled={onLastPage} onClick={() => setPage(lastPage)} />}
+                </Pagination>
+                <p>Showing {ads.length} of {numAds} results</p>
+            </div>
+        );
+    } else {
+        pageContent = <p>No Results 😕</p>;
+    }
+
+    return pageContent;
 }
 
 export default AdList;
