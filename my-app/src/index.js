@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App style={{height: '100vh', width: '100vw'}}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
