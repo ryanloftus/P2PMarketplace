@@ -16,7 +16,6 @@ function App(props) {
     const [filters, setFilters] = useState({});
 
     const goToLogin = () => setView('login');
-    const goToCreateAccount = () => setView('createAccount');
     const goToAds = () => setView('ads');
     const goToProfile = () => setView('profile');
 
@@ -28,9 +27,7 @@ function App(props) {
 
     let appJsx;
     if (view === 'login' || user === null) {
-        appJsx = <Login />
-    } else if (view === 'createAccount') {
-        
+        appJsx = <Login goToAds={goToAds} />
     } else if (view === 'ads') {
         appJsx = (
             <Container fluid className="app">
