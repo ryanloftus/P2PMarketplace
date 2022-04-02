@@ -15,9 +15,14 @@ function App(props) {
     const [view, setView] = useState('login');
     const [filters, setFilters] = useState({});
 
-    const goToLogin = () => setView('login');
+    const goToLogin = () => {
+        setView('login');
+        setUser(null);
+    }
     const goToAds = () => setView('ads');
+    const goToPost = () => setView('post');
     const goToProfile = () => setView('profile');
+    const loginUser = (user) => setUser(user);
 
     const updateFilter = (filterName, filterValue) => {
         const newFilters = {...filters};
@@ -26,14 +31,13 @@ function App(props) {
     }
 
     let appJsx;
+    let navbar = <NavBar goToAds={goToAds} goToLogin={goToLogin} goToPost={goToPost} goToProfile={goToProfile} />;
     if (view === 'login' || user === null) {
-        appJsx = <Login goToAds={goToAds} />
+        appJsx = <Login goToAds={goToAds} loginUser={loginUser} />
     } else if (view === 'ads') {
         appJsx = (
             <Container fluid className="app">
-                <Row>
-                    <NavBar />
-                </Row>
+                <Row>{navbar}</Row>
                 <Row>
                     <Col>
                         <FilterMenu updateFilter={updateFilter} />
@@ -44,8 +48,17 @@ function App(props) {
                 </Row>
             </Container>
         );
+    } else if (view === 'post') {
+        
     } else if (view === 'profile') {
-
+        appJsx = (
+            <Container fluid className="app">
+                <Row>{navbar}</Row>
+                <Row>
+                    <AdList filters={{user: user}} />
+                </Row>
+            </Container>
+        );
     } else {
         appJsx = <Alert variant="danger"><Alert.Heading>An error occurred. Try reloading the page.</Alert.Heading></Alert>;
     }

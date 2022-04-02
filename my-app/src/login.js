@@ -38,6 +38,7 @@ function Login(props) {
                 });
                 const body = await res.json();
                 if (body?.wasPostSuccessful) {
+                    props.loginUser(username);
                     props.goToAds();
                 } else {
                     Alert('Username is taken. Please use a different username.');
@@ -60,6 +61,7 @@ function Login(props) {
                 });
                 const body = await res.json();
                 if (body !== null && body.password === password) {
+                    props.loginUser(username);
                     props.goToAds();
                 } else {
                     Alert('Username or password are incorrect.');
