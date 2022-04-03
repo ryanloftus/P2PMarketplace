@@ -48,11 +48,7 @@ function Login(props) {
             try {
                 const url = new URL('http://localhost:5000/api/v1/users/');
                 url.search = new URLSearchParams({ username: username }).toString();
-                const res = await fetch(url, {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: { 'Content-Type': 'application/json' }
-                });
+                const res = await fetch(url, { method: 'GET', mode: 'cors', headers: { 'Content-Type': 'application/json' } });
                 const body = await res.json();
                 if (body !== null && body.password === password) {
                     props.loginUser(username);

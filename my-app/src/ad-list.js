@@ -8,19 +8,20 @@ function AdList({ filters }) {
     const [page, setPage] = useState(0);
 
     const fetchAds = useCallback(async () => {
-        const data = { filters: filters, page: page, adsPerPage: 20 };
         try {
-            const res = await fetch('http://localhost:5000/api/v1/ads/', { 
-                method: 'GET',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/json' },
-                params: JSON.stringify(data),
+            const url = new URL('http://localhost:5000/api/v1/ads/');
+            url.search = new URLSearchParams({ ...filters, page: page, adsPerPage: 20 }).toString();
+            const res = await fetch(url, { 
+                method: 'GET', 
+                mode: 'cors', 
+                headers: { 'Content-Type': 'application/json' }
             });
             const body = await res.json();
             setAds(body.ads);
             setNumAds(body.numResults);
         } catch (err) {
-            console.error(`Failed to retrieve ads. ${err}`);
+            setAds([]);
+            setNumAds(0);
         }
     }, [filters, page]);
     
@@ -33,7 +34,7 @@ function AdList({ filters }) {
     let pageContent;
     if (ads && numAds > 0) {
         pageContent = (
-            <div style={{width:'100%'}}>
+            <div style={{width:'80%'}}>
                 {ads.map((ad, i) => <Ad info={ad} key={i} />)}
                 <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />

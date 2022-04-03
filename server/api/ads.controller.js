@@ -6,7 +6,7 @@ export default class AdsController {
 
         const adsPerPage = params.adsPerPage ? parseInt(params.adsPerPage) : 20;
         const page = params.page ? parseInt(params.page) : 0;
-        const filters = params.filters ?? {};
+        const filters = req.query ?? {};
         const { adsList, numResults } = await AdsDao.getAds({ filters: filters, page: page, adsPerPage: adsPerPage });
 
         res.json({
@@ -19,7 +19,6 @@ export default class AdsController {
 
     static async apiPostAd(req, res) {
         const wasPostSuccess = await AdsDao.postAd(req.body);
-
         res.json({ successful: wasPostSuccess });
     }
 
