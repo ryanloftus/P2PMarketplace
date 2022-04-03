@@ -11,8 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
 
-    const [user, setUser] = useState(null);
-    const [view, setView] = useState('login');
+    const [user, setUser] = useState('RyanLoftus');
+    const [view, setView] = useState('ads');
     const [filters, setFilters] = useState({});
 
     const goToLogin = () => {

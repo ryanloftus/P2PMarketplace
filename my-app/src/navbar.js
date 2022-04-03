@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 
 function NavBar(props) {
     return (
-        <Navbar fixed="top" className="NavBar" variant="dark" style={{backgroundColor: '#333'}}>
+        <Navbar className="NavBar" variant="dark" style={{backgroundColor: '#333'}}>
             <Navbar.Brand className="NavBar-title">P2P MarketPlace</Navbar.Brand>
             <Nav>
                 <Nav.Link onClick={props.goToAds}>View Ads</Nav.Link>
