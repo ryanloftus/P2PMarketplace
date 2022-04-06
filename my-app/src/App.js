@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from './navbar';
 import FilterMenu from './filter-menu';
+import AdEditor from './ad-editor';
 import AdList from './ad-list';
 import Login from './login';
 import Alert from 'react-bootstrap/Alert';
@@ -11,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
 
-    const [user, setUser] = useState('RyanLoftus');
+    const [user, setUser] = useState('user1');
     const [view, setView] = useState('ads');
     const [filters, setFilters] = useState({});
 
@@ -43,19 +44,24 @@ function App(props) {
                         <FilterMenu updateFilter={updateFilter} />
                     </Col>
                     <Col xs={10}>
-                        <AdList filters={filters} />
+                        <AdList filters={filters} isEditable={false} />
                     </Col>
                 </Row>
             </Container>
         );
     } else if (view === 'post') {
-        
+        appJsx = (
+            <Container fluid className="app">
+                <Row>{navbar}</Row>
+                <Row><AdEditor /></Row>
+            </Container>
+        );
     } else if (view === 'profile') {
         appJsx = (
             <Container fluid className="app">
                 <Row>{navbar}</Row>
                 <Row>
-                    <AdList filters={{user: user}} />
+                    <AdList filters={{user: user}} isEditable={true} />
                 </Row>
             </Container>
         );

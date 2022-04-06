@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 import Ad from './ad';
 
-function AdList({ filters }) {
+function AdList({ filters, isEditable }) {
     const [ads, setAds] = useState([]);
     const [numAds, setNumAds] = useState(0);
     const [page, setPage] = useState(0);
@@ -35,7 +35,7 @@ function AdList({ filters }) {
     if (ads && numAds > 0) {
         pageContent = (
             <div style={{width:'80%'}}>
-                {ads.map((ad, i) => <Ad info={ad} key={i} />)}
+                {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} />)}
                 <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />
                     <Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />

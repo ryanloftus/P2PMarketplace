@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
 
 function Ad(props) {
@@ -16,9 +17,12 @@ function Ad(props) {
         diffStr = 'new';
     }
 
+    const userControls = <div><Button>Edit</Button><Button>Delete</Button></div>;
+
     return (
         <Card style={{width: '80%', margin: '20px auto'}}>
             <Card.Body>
+                {props.isEditable ? userControls : null}
                 <Card.Title>{props.info.title}</Card.Title>
                 <Badge pill bg="primary">{props.info.category}</Badge>
                 <Badge pill bg="secondary">{diffStr}</Badge>
