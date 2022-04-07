@@ -23,6 +23,7 @@ function App(props) {
     const goToAds = () => setView('ads');
     const goToPost = () => setView('post');
     const goToProfile = () => setView('profile');
+    const goToEditor = () => setView('editor');
     const loginUser = (user) => setUser(user);
 
     const updateFilter = (filterName, filterValue) => {
@@ -34,7 +35,11 @@ function App(props) {
     let appJsx;
     let navbar = <NavBar goToAds={goToAds} goToLogin={goToLogin} goToPost={goToPost} goToProfile={goToProfile} />;
     if (view === 'login' || user === null) {
-        appJsx = <Login goToAds={goToAds} loginUser={loginUser} />
+        appJsx = (
+            <Container fluid className="app" style={{backgroundColor: '#333', height: '100vh', display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                <Login goToAds={goToAds} loginUser={loginUser} />
+            </Container>
+        );
     } else if (view === 'ads') {
         appJsx = (
             <Container fluid className="app">
@@ -53,16 +58,21 @@ function App(props) {
         appJsx = (
             <Container fluid className="app">
                 <Row>{navbar}</Row>
-                <Row><AdEditor /></Row>
+                <Row><AdEditor exit={goToAds} user={user} /></Row>
+            </Container>
+        );
+    } else if (view === 'editor') {
+        appJsx = (
+            <Container fluid className="app">
+                <Row>{navbar}</Row>
+                <Row><AdEditor exit={goToProfile} user={user} /></Row>
             </Container>
         );
     } else if (view === 'profile') {
         appJsx = (
             <Container fluid className="app">
                 <Row>{navbar}</Row>
-                <Row>
-                    <AdList filters={{user: user}} isEditable={true} />
-                </Row>
+                <Row><AdList filters={{user: user}} isEditable={true} openEditor={goToEditor} /></Row>
             </Container>
         );
     } else {

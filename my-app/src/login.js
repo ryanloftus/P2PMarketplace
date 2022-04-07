@@ -68,23 +68,21 @@ function Login(props) {
     }, [isNewUser]);
 
     return (
-        <div style={{width: '100vw', height: '100vh', backgroundColor: '#333', display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-            <Card style={{width: '32rem', padding: '2rem'}}>
-                <Card.Title>{varText.title}</Card.Title>
-                {alertText ? <Alert variant='danger'>{alertText}</Alert> : null}
-                <Form.Group style={{marginBottom: '10px'}}>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="username" placeholder="Enter username" onChange={(event) => setUsername(event.target.value)} />
-                </Form.Group>
-                <Form.Group style={{marginBottom: '10px'}}>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
-                </Form.Group>
-                <Button variant="primary" type="submit" onClick={onSubmit}>{varText.submit}</Button>
-                <Form.Text>{varText.switchPrompt}</Form.Text>
-                <Button variant="link" onClick={() => setIsNewUser(!isNewUser)}>{varText.switchButton}</Button>
-            </Card>
-        </div>
+        <Card style={{width: '32rem', padding: '2rem'}}>
+            <Card.Title>{varText.title}</Card.Title>
+            {alertText ? <Alert variant='danger'>{alertText}</Alert> : null}
+            <Form.Group style={{marginBottom: '10px'}}>
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="username" placeholder="Enter username" onChange={(event) => setUsername(event.target.value)} />
+            </Form.Group>
+            <Form.Group style={{marginBottom: '10px'}}>
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={onSubmit}>{varText.submit}</Button>
+            <Form.Text>{varText.switchPrompt}</Form.Text>
+            <Button variant="link" onClick={() => setIsNewUser(!isNewUser)}>{varText.switchButton}</Button>
+        </Card>
     );
 }
 
