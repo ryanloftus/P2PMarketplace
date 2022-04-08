@@ -13,20 +13,23 @@ function AdEditor(props) {
     const [location, setLocation] = useState(props.adInfo?.location || {});
     const [alertText, setAlertText] = useState(undefined);
 
-    // TODO: check if we should be updating rather than posting
     const handleSubmit = async () => {
         try {
             const data = { 
                 title: title, 
                 price: price, 
                 description: description, 
-                categroy: category, 
+                category: category, 
+                images: images,
                 location: location, 
                 date: new Date().toISOString(), 
                 user: props.user 
             };
+            if (props.adInfo?._id) {
+                data.id = props.adInfo.id;
+            }
             const res = await fetch('http://localhost:5000/api/v1/ads/', {
-                method: 'POST',
+                method: props.adInfo ? 'PUT' : 'POST',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -57,7 +60,7 @@ function AdEditor(props) {
     };
 
     const removeImage = (ind) => {
-        setImages(images.filter((img, index) => index != ind));
+        setImages(images.filter((img, index) => index !== ind));
     }
 
     const imageJsx = images.map((img, ind) => (
@@ -74,19 +77,19 @@ function AdEditor(props) {
             {alertText ? <Alert variant="danger">alertText</Alert> : null}
             <Form.Group>
                 <Form.Label>Title</Form.Label>
-                <Form.Control placeholder="Enter a Title" onChange={(e) => setTitle(e.target.value)} />
+                <Form.Control placeholder="Enter a Title" onChange={(e) => setTitle(e.target.value)} defaultValue={title} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Price</Form.Label>
-                <Form.Control type="number" onChange={(e) => setPrice(e.target.value)} />
+                <Form.Control type="number" onChange={(e) => setPrice(e.target.value)} defaultValue={price} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Description</Form.Label>
-                <Form.Control as="textarea" placeholder="Description here." onChange={(e) => setDescription(e.target.value)} />
+                <Form.Control as="textarea" placeholder="Description here." onChange={(e) => setDescription(e.target.value)} defaultValue={description} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Category</Form.Label>
-                <Form.Select onChange={(e) => setCategory(e.target.value)}>
+                <Form.Select onChange={(e) => setCategory(e.target.value)} defaultValue={category}>
                     <option value="clothes">Clothes</option>
                     <option value="furniture">Furniture</option>
                     <option value="electronics">Electronics</option>
@@ -99,7 +102,7 @@ function AdEditor(props) {
             {imageJsx}
             <Form.Group>
                 <Form.Label>Provice/Territory</Form.Label>
-                <Form.Select onChange={(e) => updateLocation('province', e.target.value)}>
+                <Form.Select onChange={(e) => updateLocation('province', e.target.value)} defaultValue={location.province}>
                     <option value="AB">Alberta</option>
                     <option value="BC">British Columbia</option>
                     <option value="MB">Manitoba</option>
@@ -115,9 +118,9 @@ function AdEditor(props) {
                     <option value="YT">Yukon</option>
                 </Form.Select>
                 <Form.Label>City</Form.Label>
-                <Form.Control placeholder="Enter City" onChange={(e) => updateLocation('city', e.target.value)} />
+                <Form.Control placeholder="Enter City" onChange={(e) => updateLocation('city', e.target.value)} defaultValue={location.city} />
                 <Form.Label>Address</Form.Label>
-                <Form.Control placeholder="Enter Address" onChange={(e) => updateLocation('address', e.target.value)} />
+                <Form.Control placeholder="Enter Address" onChange={(e) => updateLocation('address', e.target.value)} defaultValue={location.address} />
             </Form.Group>
             <Button type="submit">Submit</Button>
         </Form>

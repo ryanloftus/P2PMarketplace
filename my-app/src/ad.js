@@ -17,7 +17,9 @@ function Ad(props) {
         diffStr = 'new';
     }
 
-    const userControls = <div><Button>Edit</Button><Button>Delete</Button></div>;
+    const userControls = <div><Button onClick={() => props.openEditor(props.info)}>Edit</Button><Button>Delete</Button></div>;
+    const images = props.info.images.length === 0 ? null : 
+        (<Carousel>{props.info.images.map((url, i) => <Carousel.Item key={i}><img className="d-block w-100" alt="" src={url}/></Carousel.Item>)}</Carousel>);
 
     return (
         <Card style={{width: '80%', margin: '20px auto'}}>
@@ -29,9 +31,7 @@ function Ad(props) {
                 <Badge pill bg="secondary">{props.info.location.city}, {props.info.location.province}</Badge>
                 <Card.Text>${props.info.price}</Card.Text>
                 <Card.Text>{props.info.description}</Card.Text>
-                <Carousel>
-                    {props.info.images.map((url, i) => <Carousel.Item key={i}><img className="d-block w-100" src={url}/></Carousel.Item>)}
-                </Carousel>
+                {images}
             </Card.Body>
         </Card>
     );

@@ -34,7 +34,7 @@ export default class AdsDao {
 
     static async postAd(adData) {
         try {
-            ads.insertOne(adData);
+            await ads.insertOne(adData);
             return true;
         } catch (err) {
             console.error(`Unable to post ad. ${err}`);
@@ -44,7 +44,7 @@ export default class AdsDao {
 
     static async updateAd(id, adData) {
         try {
-            ads.update({ _id: id }, { $set: adData });
+            await ads.replaceOne({ _id: id }, adData);
             return true;
         } catch (err) {
             console.error(`Unable to update ad. ${err}`);
@@ -55,7 +55,7 @@ export default class AdsDao {
     static async deleteAd(id) {
         if (!id) return false;
         try {
-            ads.remove({ _id: id }, { justOne: true });
+            await ads.remove({ _id: id }, { justOne: true });
             return true;
         } catch (err) {
             console.error(`Unable to issue delete. ${err}`);

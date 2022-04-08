@@ -15,6 +15,7 @@ function App(props) {
     const [user, setUser] = useState('user1');
     const [view, setView] = useState('ads');
     const [filters, setFilters] = useState({});
+    const [adInfo, setAdInfo] = useState({});
 
     const goToLogin = () => {
         setView('login');
@@ -23,7 +24,10 @@ function App(props) {
     const goToAds = () => setView('ads');
     const goToPost = () => setView('post');
     const goToProfile = () => setView('profile');
-    const goToEditor = () => setView('editor');
+    const goToEditor = (ad = {}) => {
+        setView('editor');
+        setAdInfo(ad);
+    }
     const loginUser = (user) => setUser(user);
 
     const updateFilter = (filterName, filterValue) => {
@@ -65,7 +69,7 @@ function App(props) {
         appJsx = (
             <Container fluid className="app">
                 <Row>{navbar}</Row>
-                <Row><AdEditor exit={goToProfile} user={user} /></Row>
+                <Row><AdEditor exit={goToProfile} user={user} adInfo={adInfo} /></Row>
             </Container>
         );
     } else if (view === 'profile') {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
+import Container from 'react-bootstrap/Container';
 import Ad from './ad';
 
-function AdList({ filters, isEditable }) {
+function AdList({ filters, isEditable, openEditor }) {
     const [ads, setAds] = useState([]);
     const [numAds, setNumAds] = useState(0);
     const [page, setPage] = useState(0);
@@ -34,8 +35,8 @@ function AdList({ filters, isEditable }) {
     let pageContent;
     if (ads && numAds > 0) {
         pageContent = (
-            <div style={{width:'80%'}}>
-                {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} />)}
+            <Container fluid>
+                {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} openEditor={openEditor}/>)}
                 <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />
                     <Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />
@@ -44,7 +45,7 @@ function AdList({ filters, isEditable }) {
                     <Pagination.Last disabled={onLastPage} onClick={() => setPage(lastPage)} />
                 </Pagination>
                 <p style={{display: 'flex',  justifyContent:'center'}}>Showing {ads.length} of {numAds} results</p>
-            </div>
+            </Container>
         );
     } else {
         pageContent = <p>No Results 😕</p>;
