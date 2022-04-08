@@ -26,7 +26,7 @@ function AdEditor(props) {
                 user: props.user 
             };
             if (props.adInfo?._id) {
-                data.id = props.adInfo.id;
+                data.id = props.adInfo._id;
             }
             const res = await fetch('http://localhost:5000/api/v1/ads/', {
                 method: props.adInfo ? 'PUT' : 'POST',
@@ -73,8 +73,8 @@ function AdEditor(props) {
     ));
 
     return (
-        <Form onSubmit={handleSubmit}>
-            {alertText ? <Alert variant="danger">alertText</Alert> : null}
+        <Form>
+            {alertText ? <Alert variant="danger">{alertText}</Alert> : null}
             <Form.Group>
                 <Form.Label>Title</Form.Label>
                 <Form.Control placeholder="Enter a Title" onChange={(e) => setTitle(e.target.value)} defaultValue={title} />
@@ -122,7 +122,7 @@ function AdEditor(props) {
                 <Form.Label>Address</Form.Label>
                 <Form.Control placeholder="Enter Address" onChange={(e) => updateLocation('address', e.target.value)} defaultValue={location.address} />
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
         </Form>
     );
 }

@@ -24,8 +24,9 @@ export default class AdsController {
 
     static async apiUpdateAd(req, res) {
         const id = req.body.id;
-        delete req.body.id;
-        const wasUpdateSuccess = await AdsDao.updateAd(id, req.body);
+        const updatedAd = {...req.body};
+        delete updatedAd.id;
+        const wasUpdateSuccess = await AdsDao.updateAd(id, updatedAd);
 
         res.json({ successful: wasUpdateSuccess });
     }

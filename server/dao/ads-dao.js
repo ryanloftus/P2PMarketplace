@@ -1,4 +1,5 @@
 let ads;
+import { ObjectId } from 'mongodb'; 
 
 export default class AdsDao {
     static async injectDB(connection) {
@@ -43,9 +44,10 @@ export default class AdsDao {
     }
 
     static async updateAd(id, adData) {
+        if (!id) return false;
         try {
-            await ads.replaceOne({ _id: id }, adData);
-            return true;
+            const result = await ads.replaceOne({ _id: {$eq: new ObjectId(id)} }, adData);
+            return result.acknowledged && result.modifiedCount === 1 ? true : false;
         } catch (err) {
             console.error(`Unable to update ad. ${err}`);
             return false;
@@ -55,7 +57,7 @@ export default class AdsDao {
     static async deleteAd(id) {
         if (!id) return false;
         try {
-            await ads.remove({ _id: id }, { justOne: true });
+            await ads.deleteOne({ _id: {$eq: new ObjectId(id)} });
             return true;
         } catch (err) {
             console.error(`Unable to issue delete. ${err}`);
