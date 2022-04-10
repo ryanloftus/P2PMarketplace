@@ -12,7 +12,6 @@ export default class AdsDao {
     }
 
     static async getAds({ filters = {}, page = 0, adsPerPage = 20 }) {
-        // TODO: add sort functionality
         let query = {};
         if (filters) {
             if (filters.priceMin && filters.priceMax)
@@ -23,8 +22,16 @@ export default class AdsDao {
                 query.user = { $eq: filters.user };
         }
 
+        let sort = { date: -1 };
+        if (filters?.sort === 'age-old')
+            sort = { date: 1 };
+        else if (filters?.sort === 'price-low')
+            sort = { price: 1 };
+        else if (filters?.sort === 'price-high')
+            sort = { price: -1 };
+
         try {
-            const adsList = await ads.find(query).skip(adsPerPage * page).limit(adsPerPage).toArray();
+            const adsList = await ads.find(query).sort(sort).skip(adsPerPage * page).limit(adsPerPage).toArray();
             const numResults = await ads.countDocuments(query);
             return { adsList: adsList, numResults: numResults };
         } catch (err) {

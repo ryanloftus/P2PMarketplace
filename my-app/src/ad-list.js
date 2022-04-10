@@ -7,6 +7,7 @@ function AdList({ filters, isEditable, openEditor }) {
     const [ads, setAds] = useState([]);
     const [numAds, setNumAds] = useState(0);
     const [page, setPage] = useState(0);
+    const [alertText, setAlertText] = useState(null);
 
     const fetchAds = useCallback(async () => {
         try {
@@ -28,6 +29,27 @@ function AdList({ filters, isEditable, openEditor }) {
     
     useEffect(() => fetchAds(), [page, filters]);
 
+    const deleteAd = useCallback((id) => {
+        try {
+            const res = await fetch('http://localhost:5000/api/v1/ads/', { 
+                method: 'DELETE', 
+                mode: 'cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            const body = await res.json();
+            if (body?.successful) {
+                const newAds = ads.filter(val => val._id !== id);
+                setAds(newAds);
+                setAlertText(null);
+            } else {
+                setAlertText('Delete failed. Please try again later.');
+            }
+        } catch (err) {
+            setAlertText('Delete failed. Please try again later.')
+        }
+    });
+
     const lastPage = Math.floor(numAds / 20);
     const onFirstPage = page === 0;
     const onLastPage = page === lastPage;
@@ -36,7 +58,8 @@ function AdList({ filters, isEditable, openEditor }) {
     if (ads && numAds > 0) {
         pageContent = (
             <Container fluid>
-                {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} openEditor={openEditor}/>)}
+                <Alert>{alertText}</Alert>
+                {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} openEditor={openEditor} deleteAd={deleteAd} />)}
                 <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />
                     <Pagination.Prev disabled={onFirstPage} onClick={() => setPage(page - 1)} />

@@ -17,7 +17,12 @@ function Ad(props) {
         diffStr = 'new';
     }
 
-    const userControls = <div><Button onClick={() => props.openEditor(props.info)}>Edit</Button><Button>Delete</Button></div>;
+    const userControls = (
+        <div>
+            <Button onClick={() => props.openEditor(props.info)}>Edit</Button>
+            <Button onClick={() => props.deleteAd(props.info._id)}>Delete</Button>
+        </div>
+    );
     const images = props.info.images.length === 0 ? null : 
         (<Carousel>{props.info.images.map((url, i) => <Carousel.Item key={i}><img className="d-block w-100" alt="" src={url}/></Carousel.Item>)}</Carousel>);
 
