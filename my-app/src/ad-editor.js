@@ -2,7 +2,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import React, { useState } from 'react';
+
+const rowStyle = {marginTop: '10px'};
 
 function AdEditor(props) {
     const [title, setTitle] = useState(props.adInfo?.title || '');
@@ -17,12 +21,12 @@ function AdEditor(props) {
         try {
             const data = { 
                 title: title, 
-                price: price, 
+                price: Number(price), 
                 description: description, 
                 category: category, 
                 images: images,
                 location: location, 
-                date: new Date().toISOString(), 
+                date: new Date(), 
                 user: props.user 
             };
             if (props.adInfo?._id) {
@@ -52,9 +56,9 @@ function AdEditor(props) {
 
     const addImage = () => {
         images.push('');
-        setImages(images);
+        setImages([...images]);
     };
-
+    
     const handleImageChanged = (e) => {
         images[e.target.key] = e.target.value;
     };
@@ -75,54 +79,70 @@ function AdEditor(props) {
     return (
         <Form>
             {alertText ? <Alert variant="danger">{alertText}</Alert> : null}
-            <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control placeholder="Enter a Title" onChange={(e) => setTitle(e.target.value)} defaultValue={title} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Price</Form.Label>
-                <Form.Control type="number" onChange={(e) => setPrice(e.target.value)} defaultValue={price} />
-            </Form.Group>
-            <Form.Group>
+            <Row style={rowStyle}>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control placeholder="Enter a Title" onChange={(e) => setTitle(e.target.value)} defaultValue={title} />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control type="number" onChange={(e) => setPrice(e.target.value)} defaultValue={price} />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Category</Form.Label>
+                        <Form.Select onChange={(e) => setCategory(e.target.value)} defaultValue={category}>
+                            <option value="clothes">Clothes</option>
+                            <option value="furniture">Furniture</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="sporting-goods">Sporting Goods</option>
+                            <option value="automobiles">Automobiles</option>
+                            <option value="misc">Misc</option>
+                        </Form.Select>
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Form.Group style={rowStyle}>
                 <Form.Label>Description</Form.Label>
                 <Form.Control as="textarea" placeholder="Description here." onChange={(e) => setDescription(e.target.value)} defaultValue={description} />
             </Form.Group>
-            <Form.Group>
-                <Form.Label>Category</Form.Label>
-                <Form.Select onChange={(e) => setCategory(e.target.value)} defaultValue={category}>
-                    <option value="clothes">Clothes</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="sporting-goods">Sporting Goods</option>
-                    <option value="automobiles">Automobiles</option>
-                    <option value="misc">Misc</option>
-                </Form.Select>
+            <Row style={rowStyle}>
+                <Col>
+                    <Form.Label>Provice/Territory</Form.Label>
+                    <Form.Select onChange={(e) => updateLocation('province', e.target.value)} defaultValue={location.province}>
+                        <option value="AB">Alberta</option>
+                        <option value="BC">British Columbia</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="NB">New Brunswick</option>
+                        <option value="NL">Newfoundland and Labrador</option>
+                        <option value="NS">Nova Scotia</option>
+                        <option value="ON">Ontario</option>
+                        <option value="PE">Price Edward Island</option>
+                        <option value="QC">Quebec</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="NT">Northwest Territories</option>
+                        <option value="NU">Nunavut</option>
+                        <option value="YT">Yukon</option>
+                    </Form.Select>
+                </Col>
+                <Col>
+                    <Form.Label>City</Form.Label>
+                    <Form.Control placeholder="Enter City" onChange={(e) => updateLocation('city', e.target.value)} defaultValue={location.city} />
+                </Col>
+                <Col>
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control placeholder="Enter Address" onChange={(e) => updateLocation('address', e.target.value)} defaultValue={location.address} />
+                </Col>
+            </Row>
+            <Form.Group style={rowStyle}>
+                <Button onClick={addImage}>Add an image</Button>
+                {imageJsx}
             </Form.Group>
-            <Button onClick={addImage}>Add an image</Button>
-            {imageJsx}
-            <Form.Group>
-                <Form.Label>Provice/Territory</Form.Label>
-                <Form.Select onChange={(e) => updateLocation('province', e.target.value)} defaultValue={location.province}>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Price Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="YT">Yukon</option>
-                </Form.Select>
-                <Form.Label>City</Form.Label>
-                <Form.Control placeholder="Enter City" onChange={(e) => updateLocation('city', e.target.value)} defaultValue={location.city} />
-                <Form.Label>Address</Form.Label>
-                <Form.Control placeholder="Enter Address" onChange={(e) => updateLocation('address', e.target.value)} defaultValue={location.address} />
-            </Form.Group>
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button style={rowStyle} onClick={handleSubmit}>Submit</Button>
         </Form>
     );
 }

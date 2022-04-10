@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
+import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Ad from './ad';
 
@@ -29,7 +30,7 @@ function AdList({ filters, isEditable, openEditor }) {
     
     useEffect(() => fetchAds(), [page, filters]);
 
-    const deleteAd = useCallback((id) => {
+    const deleteAd = useCallback(async (id) => {
         try {
             const res = await fetch('http://localhost:5000/api/v1/ads/', { 
                 method: 'DELETE', 
@@ -58,7 +59,7 @@ function AdList({ filters, isEditable, openEditor }) {
     if (ads && numAds > 0) {
         pageContent = (
             <Container fluid>
-                <Alert>{alertText}</Alert>
+                {alertText ? <Alert>{alertText}</Alert> : null}
                 {ads.map((ad, i) => <Ad info={ad} key={i} isEditable={isEditable} openEditor={openEditor} deleteAd={deleteAd} />)}
                 <Pagination style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Pagination.First disabled={onFirstPage} onClick={() => setPage(0)} />
