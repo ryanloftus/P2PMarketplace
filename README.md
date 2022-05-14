@@ -10,16 +10,16 @@ This is a full-stack web application build with the MERN stack (MongoDB, Express
 
 Login screen:
 
-![alt text](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/login.png)
+![Login screen](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/login.png?raw=true)
 
 Browse ads screen:
 
-![alt text](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/browse.png)
+![Browse ads screen](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/browse.png)
 
 Post/edit ad screen:
 
-![alt text](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/post.png)
+![Post/edit ad screen](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/post.png)
 
 Profile screen:
 
-![alt text](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/profile.png)
+![Profile screen](https://github.com/ryanloftus/P2PMarketplace/tree/main/readme_imgs/profile.png)
